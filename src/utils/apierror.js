@@ -4,7 +4,8 @@ class Apierror extends Error {
     ) {
         super(message);
         this.statusCode = statusCode,
-            success = false
+            success = false,
+            message=this.message
         if (stack) {
             this.stack = stack
         } else { Error.captureStackTrace(this, constructor) }
