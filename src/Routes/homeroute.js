@@ -3,4 +3,4 @@ import { getrequestHomepage } from "../controllers/homePage.js";
 
 
 const Routers = Router()
-export const homeRoute = Routers.get("/", getrequestHomepage)
+export const homeRoute = Routers.get("/",getrequestHomepage)

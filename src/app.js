@@ -13,10 +13,8 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }))
-app.use("/", logfiles, userrouters, (req, res, next) => {
-    if (req.headers["user-agent"].includes) { console.log((req.headers["user-agent"].substring(0, 11))) }
-    next()
-})
+app.use("/", logfiles, userrouters)
+
 app.use("/", homeRoute)
 export { app }
 
