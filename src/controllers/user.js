@@ -1,7 +1,4 @@
 
-console.clear()
-
-let data = { username: "swapnil" }
 const handleGetuser = (req, res) => {
     res.send("home route")
 }

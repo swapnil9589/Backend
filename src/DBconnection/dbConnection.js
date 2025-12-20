@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const dbConnect = async(URL) => {
+const dbConnect = async (URL) => {
     try {
-        const dbInstance =await mongoose.connect(URL)
+        const dbInstance = await mongoose.connect(URL)
         console.log(dbInstance.connection.host);
 
     } catch (err) {
-        console.log(err);
-        process.exit(1)
+        console.log("check this is Mongo DB error=====>",err);
+        mongoose.process.exit(1)
     }
 }
 export { dbConnect }
