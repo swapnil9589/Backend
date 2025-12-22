@@ -29,10 +29,17 @@ const userSchema = new Schema(
       unique: true,
       required: true,
     },
+    profile_photo: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    cover_photo: {
+      type: String,
+      unique: true,
+    },
     isActive: {
       type: Boolean,
-
-      
     },
   },
   { timestamps: true }

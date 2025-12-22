@@ -1,23 +1,23 @@
 import { Router } from "express";
 import { registerUser } from "../controllers/userregister.js";
 import { Login } from "../controllers/userLogin.js";
-import { upload } from "../utils/multer.js";
+import { upload } from "../middleware/multer.js";
 
 const userrouters = Router();
 userrouters.post(
   "/registerUser",
-  registerUser,
-  upload.fields(
+  upload.fields([
     {
       name: "Profile_Image",
-      Max: 1,
+      maxCount: 1,
     },
     {
       name: "coverImage",
-      max: 1,
+      maxCount: 1,
     },
-    { type: "auto" }
-  )
+  ]),
+  registerUser
 );
-userrouters.route("/Login").get(Login);
+userrouters.route("./Profile").get(Profile);
+userrouters.route("/Login").post(Login);
 export { userrouters };

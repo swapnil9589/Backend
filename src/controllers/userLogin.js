@@ -5,6 +5,7 @@ import { Apiresponse } from "../utils/apiResponse.js";
 
 export const Login = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
+  console.log("body:");
 
   if ([username, password, email].some((e) => e.trim() == "")) {
     throw new Apierror(
@@ -21,8 +22,8 @@ export const Login = asyncHandler(async (req, res) => {
     "-fullname",
     "-_id",
   ]);
-  console.log("body:", req.originalUrl);
-  console.log("body:", req.body);
+
+  console.log("DATA:",user);
 
   const decodedpassword = async (password) => {
     const correct_password = await user.isPasswordCorrect(password);
@@ -32,7 +33,7 @@ export const Login = asyncHandler(async (req, res) => {
     if (correct_password) user.password = password;
     return correct_password;
   };
-  decodedpassword(password);
+  // decodedpassword(password);
 
   if (!user) {
     throw new Apierror(409, "please SignUp you are new user");
