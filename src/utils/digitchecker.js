@@ -1,17 +1,23 @@
+import { Apierror } from "./apierror.js";
 
-console.clear()
-export const checkerDigit = (String) => {
-    let num = ""
-    let isSecure = true
-    for (let i in String) {
+export const isValid_username = (String) => {
+    let num = 1;
 
-        if (Number(String[i])) {
-            num += Number(String[i])
-        }
+    for (const element of String) {
+        if (element == " ") return false
+        if (Number(element)) num++
     }
-    if (num.length < 2 || num.length > 6) {
-        isSecure = false
-        num = "This is not secure username"
-    }
-    return [num, isSecure]
+    if (num < 2) return false
+    return true
+
 }
+
+
+export const isValid_mobile_number = (number) => {
+    let num = Number(number[0])
+    if (number !== 10 && num < 6) {
+        throw new Apierror(404, " please input valid mobile number")
+    }
+    return true
+}
+

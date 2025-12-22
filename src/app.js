@@ -12,8 +12,9 @@ app.use(cors({
     origin: process.env.ORIGIN,
     credentials: true
 }))
-app.use("/Users", logfiles, userrouters)
+app.use("/users", logfiles, userrouters)
 
+    
 export { app }
 
 
