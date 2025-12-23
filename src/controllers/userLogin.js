@@ -5,7 +5,7 @@ import { Apiresponse } from "../utils/apiResponse.js";
 
 export const Login = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-  console.log(username, email);
+  console.log(username, email, password);
 
   if (!password || (!username && !email)) {
     throw new Apierror(406, "please check password username/email ");
@@ -14,25 +14,22 @@ export const Login = asyncHandler(async (req, res) => {
   const user = await User.findOne({
     $or: [{ username }, { email }],
   });
-
+  if (!user) {
+    throw new Apierror(404, "User not found please SignUp");
+  }
   //comparing user given password with hashing password in database
-  const decodedpassword = async (password) => {
-    const correct_password = await user.isPasswordCorrect(password);
 
-    decodedpassword(password);
-    if (!correct_password) {
-      throw new Apierror(404, "password invalid please check password");
-    }
-  };
+  const verified_password = await user.isPasswordCorrect(password);
 
   //checking user password correct or not
-  if (!user) {
-    throw new Apierror(409, "please SignUp you are new user");
+  if (!verified_password) {
+    throw new Apierror(404, "Invalid password");
   }
 
   const data = await user
-    .findOne(user._id)
+    .findById(user._id)
     .select([
+      "password",
       "-mobile_number",
       "-createdAt",
       "-updatedAt",

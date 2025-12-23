@@ -1,3 +1,4 @@
+console.clear()
 import env from "dotenv";
 import {v2 as cloudinary } from "cloudinary";
 env.config();
