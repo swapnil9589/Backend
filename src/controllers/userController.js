@@ -209,16 +209,15 @@ export const changeemail = asyncHandler(async (req, res) => {
   if (!user) {
     throw new Apierror(404, "your email or mobile_number is invalid");
   }
-  res.send(new Apiresponse(200, user, "your email fetch successfully"));
 });
 //-----------------------------------------------------------------------------------------------
 export const profile = asyncHandler(async (req, res) => {
-  if (!(req.files.profile[0].path || req.files.cover[0].path)) {
+  if (!req.files?.profile || !req.files?.cover) {
     throw new Apierror(404, "please upload profile photo or cover photo");
   }
   //fetchinfg profile photo from multer body
-  let profile = req.files?.profile[0]?.path;
-  let coverimage = req.files?.cover?.[0].path;
+  let profile = req.files.profile[0]?.path;
+  let coverimage = req.files.cover[0].path;
   console.log(profile);
   console.log(coverimage);
   res.send(new Apiresponse(200, "uplaoded successfully"));
@@ -226,11 +225,15 @@ export const profile = asyncHandler(async (req, res) => {
   //upload photos on cloudinary
   const profilefileurl = await cloudinary(profile);
   const coverphotourl = await cloudinary(coverimage);
-  console.log(profilefileurl);
-  console.log(coverphotourl);
+  console.log("profile", profilefileurl);
+  console.log("coverimage", coverphotourl);
 
-  const user = await User.findByIdAndUpdate(req.user, {
-    $set: { profile_photo: profilefileurl, cover_photo: coverphotourl },
-    new: true,
-  });
+  const user = await User.findByIdAndUpdate(
+    req.user,
+    {
+      $set: { profile_photo: profilefileurl, cover_photo: coverphotourl },
+    },
+    { new: true }
+  );
+  res.send(new Apiresponse(200, user, "your email fetch successfully"));
 });
