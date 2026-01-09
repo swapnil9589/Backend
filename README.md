@@ -11,12 +11,9 @@
                 This backend application allows users to:
                 1) Sign up
                 2) Log in
-                3) Upload and update profile images and cover image
+                3) Upload and update profile      images and cover image
                 
-                
-                🛠️ **Tech Stack**
                 🔧 Backend
-                
                 Node.js(js environment);
                 Express.js (Web framework);
                 
